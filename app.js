@@ -288,11 +288,37 @@ document.addEventListener('DOMContentLoaded', () => {
       const message = document.getElementById('contact-message').value.trim();
 
       if (name && email && message) {
-        // Show success animation overlay inside the glass container
-        successOverlay.classList.add('active');
-        
-        // Reset form input fields
-        contactForm.reset();
+        // Change submit button state to show sending
+        const submitBtn = contactForm.querySelector('.contact-submit-btn');
+        const originalBtnHTML = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin"></i>';
+
+        const formData = new FormData();
+        formData.append('entry.699984163', name);
+        formData.append('entry.1609817512', email);
+        formData.append('entry.1353138042', document.getElementById('contact-project').value.trim());
+        formData.append('entry.404548235', message);
+
+        fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLScwQ-5ybWNzlzLmwnyS72xD1uBUSrBTTg0mLKz_V6vXVpC2LQ/formResponse', {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData
+        })
+        .then(() => {
+          // Show success animation overlay inside the glass container
+          successOverlay.classList.add('active');
+          // Reset form input fields
+          contactForm.reset();
+        })
+        .catch((error) => {
+          console.error('Submission error:', error);
+          alert('There was an issue submitting your request. Please try again or WhatsApp us.');
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHTML;
+        });
       }
     });
 
