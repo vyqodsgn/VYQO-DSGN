@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VYQO is a premier creative agency engineering high-performance web applications and designing iconic graphic identities. We code experiences and design brand futures.">
+  <meta name="keywords" content="web development, graphic design, branding agency, UI UX design, custom websites, VYQO">
+  <meta name="author" content="VYQO Agency">
+  
+  <title>VYQO // Next-Gen Web Development &amp; Creative Graphic Design</title>
+  
+  <!-- Google Fonts Preconnect and Links for Outfit and Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- FontAwesome Icons (for interactive buttons/forms) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- 1. AMBIENT BACKGROUND LAYER -->
+  <div class="ambient-bg">
+    <div class="ambient-blob-1"></div>
+    <div class="ambient-blob-2"></div>
+    <div class="ambient-blob-3"></div>
+    <div class="ambient-grid"></div>
+  </div>
+
+  <!-- 2. SCROLL PROGRESS BAR -->
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- 3. NAVIGATION BAR (HEADER) -->
+  <header class="header-nav" id="headerNav">
+    <div class="container nav-wrapper">
+      <a href="#hero" class="logo-container" aria-label="VYQO Home">
+        <!-- SVG Logo loaded inline for CSS controls -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 365 100">
+          <defs>
+            <linearGradient id="nav-vyqo-accent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8A2BE2" />
+              <stop offset="50%" stop-color="#B026FF" />
+              <stop offset="100%" stop-color="#FF0080" />
+            </linearGradient>
+            <filter id="nav-logo-glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          <polygon points="5,10 27,10 47,72 67,10 89,10 57,90 37,90" fill="#ffffff" />
+          <path d="M 90 10 L 111 10 L 130 50 L 149 10 L 170 10 L 140 70 L 140 90 L 120 90 L 120 70 Z" fill="#ffffff" />
+          <g>
+            <path d="M 220 10 A 40 40 0 1 0 220 90 A 40 40 0 1 0 220 10 Z M 220 26 A 24 24 0 1 1 220 74 A 24 24 0 1 1 220 26 Z" fill="#ffffff" fill-rule="evenodd" />
+            <rect x="244" y="70" width="18" height="38" rx="9" transform="rotate(-45 244 70)" fill="url(#nav-vyqo-accent-grad)" filter="url(#nav-logo-glow)" />
+          </g>
+          <path d="M 310 10 A 40 40 0 1 0 310 90 A 40 40 0 1 0 310 10 Z M 310 26 A 24 24 0 1 1 310 74 A 24 24 0 1 1 310 26 Z" fill="#ffffff" fill-rule="evenodd" />
+        </svg>
+      </a>
+      
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About Us</a></li>
+          <li><a href="#skills" class="nav-link">Expertise</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#rates" class="nav-link">Services</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a href="#rates" class="btn btn-secondary" style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">Get Estimator</a>
+      
+      <button class="hamburger" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    
+    <!-- 4. HERO SECTION -->
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span></span> Web &amp; Identity Craftsmanship
+          </div>
+          <h1 class="hero-title">We code <span class="gradient-text">experiences</span>.<br>We design identities.</h1>
+          <p class="hero-desc">VYQO is a premier digital boutique agency. We combine cutting-edge web development with high-impact graphic design to scale your business into an elite digital product.</p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">Explore Portfolio <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="#contact" class="btn btn-secondary">Let's Collaborate</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-num">99<span>%</span></span>
+              <span class="stat-label">Client Satisfaction</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">120<span>+</span></span>
+              <span class="stat-label">Projects Completed</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num">5<span>+</span></span>
+              <span class="stat-label">Years of Innovation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="canvas-container">
+            <div class="glow-underlay"></div>
+            <!-- Floating interactive mockup cards -->
+            <div class="canvas-card" id="heroCard">
+              
+              <!-- Web App Panel (Code) -->
+              <div class="glass-art-panel art-panel-main">
+                <div class="mock-browser-top">
+                  <span class="mock-dot"></span>
+                  <span class="mock-dot"></span>
+                  <span class="mock-dot"></span>
+                </div>
+                <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; gap: 0.75rem;">
+                  <div style="height: 10px; width: 45%; background: var(--color-gradient-primary); border-radius: 5px;"></div>
+                  <div style="height: 6px; width: 85%; background: rgba(255,255,255,0.1); border-radius: 5px;"></div>
+                  <div style="height: 6px; width: 70%; background: rgba(255,255,255,0.1); border-radius: 5px;"></div>
+                  <div style="height: 6px; width: 90%; background: rgba(255,255,255,0.06); border-radius: 5px;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 0.75rem;">
+                  <span style="font-size: 0.7rem; color: var(--color-text-muted);">Status: Active</span>
+                  <span style="font-size: 0.7rem; font-weight: 700; color: var(--color-pink);">v2.0.4</span>
+                </div>
+              </div>
+
+              <!-- Graphic Design Panel (Art circle) -->
+              <div class="glass-art-panel art-panel-design">
+                <div class="mock-canvas-graphic">
+                  <div class="graphic-ring"></div>
+                </div>
+              </div>
+
+              <!-- CSS / Code overlay -->
+              <div class="glass-art-panel art-panel-code">
+                <div><span class="code-title">vyqo-app</span> {</div>
+                <div style="padding-left: 1rem;"><span class="code-property">display</span>: <span class="code-value">flex</span>;</div>
+                <div style="padding-left: 1rem;"><span class="code-property">innovation</span>: <span class="code-value">infinite</span>;</div>
+                <div style="padding-left: 1rem;"><span class="code-property">aesthetic</span>: <span class="code-value">premium</span>;</div>
+                <div style="padding-left: 1rem;"><span class="code-comment">/* Let's design! */</span></div>
+                <div>}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ABOUT US SECTION -->
+    <section class="about" id="about">
+      <div class="container about-grid">
+        <div class="about-visual">
+          <div class="about-glow-box"></div>
+          <div class="about-media">
+            <svg class="media-logo-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 365 100">
+              <polygon points="5,10 27,10 47,72 67,10 89,10 57,90 37,90" fill="#ffffff" />
+            </svg>
+            <div class="media-quote">"We refuse to build boring software. Every pixel we lay down, every line of clean code we engineer, must challenge the status quo."</div>
+            <div class="media-author">
+              <div class="author-avatar">VQ</div>
+              <div class="author-info">
+                <h4>VYQO Studios</h4>
+                <p>Creative Leadership Team</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content">
+          <span class="sub-title">Who We Are</span>
+          <h2 class="section-title">We bridge engineering &amp; digital art</h2>
+          <p class="section-desc">At VYQO, we do not believe in templated solutions. As a small, elite squad of digital engineers and graphic designers, we collaborate directly with fast-growing brands to custom-build spectacular digital spaces and high-fidelity brand systems.</p>
+          
+          <!-- Tabbed interactive element -->
+          <div class="tabs-container">
+            <div class="tab-headers">
+              <button class="tab-btn active" data-tab="tab-dev">Precision Web Dev</button>
+              <button class="tab-btn" data-tab="tab-design">Aesthetic Graphics</button>
+              <button class="tab-btn" data-tab="tab-strategy">The Brand Synergy</button>
+            </div>
+            
+            <div class="tab-contents">
+              <!-- Tab 1: Web Development -->
+              <div class="tab-content active" id="tab-dev">
+                <h3 class="tab-heading">Silky-smooth, blistering-fast web engineering</h3>
+                <p class="tab-text">We code high-performance web systems utilizing React, Next.js, Node, and advanced modern layouts. Our focus is speed, search visibility (SEO), and premium micro-interactions.</p>
+                <ul class="tab-points">
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> Speed &amp; LCP Optimization</li>
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> Interactive SPA Structure</li>
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> Safe Custom API Backend</li>
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> Fluid CSS &amp; WebGL Motion</li>
+                </ul>
+              </div>
+
+              <!-- Tab 2: Graphic Designing -->
+              <div class="tab-content" id="tab-design">
+                <h3 class="tab-heading">Visual identities that command respect</h3>
+                <p class="tab-text">Our graphic designing focuses on creating premium visual collateral. From sleek geometric vector logos to UI/UX prototypes, social assets, and motion packages, we define your visual voice.</p>
+                <ul class="tab-points">
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> Geometric Logo &amp; Brand Kits</li>
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> High-Fidelity UI/UX Prototyping</li>
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> Premium Social Media Graphics</li>
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> Custom Vector Art &amp; Typography</li>
+                </ul>
+              </div>
+
+              <!-- Tab 3: Synergy -->
+              <div class="tab-content" id="tab-strategy">
+                <h3 class="tab-heading">Unified aesthetic across all digital touchpoints</h3>
+                <p class="tab-text">Why choose between a development firm that doesn't understand aesthetics, and a design studio that cannot code? VYQO fuses both fields to ensure your app behaves as beautifully as it looks.</p>
+                <ul class="tab-points">
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> Cohesive Design System Tokens</li>
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> UX-First Interactive Flows</li>
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> Structured Digital Growth</li>
+                  <li class="tab-point"><i class="fa-solid fa-chevron-right"></i> Full-Stack Creative Engineering</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. SKILLS & EXPERTISE SECTION -->
+    <section class="skills" id="skills">
+      <div class="container skills-grid">
+        <div class="skills-left">
+          <span class="sub-title">Our Capabilities</span>
+          <h2 class="section-title">The expertise that powers our studios</h2>
+          <p class="skills-desc">Our tools are cutting-edge, but our focus is timeless. We leverage advanced frameworks and vector modeling to build experiences that look stunning on 4K screens while executing under 200ms.</p>
+          
+          <!-- Circular skill meters -->
+          <div class="radial-skills-grid">
+            
+            <div class="radial-skill-card">
+              <div class="radial-svg-container">
+                <svg class="radial-svg" width="100" height="100">
+                  <defs>
+                    <linearGradient id="radial-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#8A2BE2" />
+                      <stop offset="100%" stop-color="#FF0080" />
+                    </linearGradient>
+                  </defs>
+                  <circle class="radial-track" cx="50" cy="50" r="40"></circle>
+                  <circle class="radial-progress" cx="50" cy="50" r="40" data-percent="95"></circle>
+                </svg>
+                <div class="radial-text"><span class="radial-text-val" data-target="95">0</span>%</div>
+              </div>
+              <span class="radial-label">UI/UX Strategy</span>
+            </div>
+
+            <div class="radial-skill-card">
+              <div class="radial-svg-container">
+                <svg class="radial-svg" width="100" height="100">
+                  <circle class="radial-track" cx="50" cy="50" r="40"></circle>
+                  <circle class="radial-progress" cx="50" cy="50" r="40" data-percent="90"></circle>
+                </svg>
+                <div class="radial-text"><span class="radial-text-val" data-target="90">0</span>%</div>
+              </div>
+              <span class="radial-label">Brand Identity</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="skills-right">
+          <div class="skills-dashboard">
+            
+            <!-- Dev Capabilities Column -->
+            <div class="skills-column">
+              <h3 class="skills-column-title"><i class="fa-solid fa-code"></i> Engineering &amp; Development</h3>
+              <div class="skills-container">
+                
+                <div class="skill-bar-wrapper">
+                  <div class="skill-info">
+                    <span class="skill-name">Next.js, React &amp; Modern SPAs</span>
+                    <span class="skill-percent">95%</span>
+                  </div>
+                  <div class="skill-bar-track">
+                    <div class="skill-bar-fill" data-percent="95"></div>
+                  </div>
+                </div>
+
+                <div class="skill-bar-wrapper">
+                  <div class="skill-info">
+                    <span class="skill-name">Advanced CSS/Motion &amp; Animations</span>
+                    <span class="skill-percent">98%</span>
+                  </div>
+                  <div class="skill-bar-track">
+                    <div class="skill-bar-fill" data-percent="98"></div>
+                  </div>
+                </div>
+
+                <div class="skill-bar-wrapper">
+                  <div class="skill-info">
+                    <span class="skill-name">Performance Optimization &amp; SEO</span>
+                    <span class="skill-percent">90%</span>
+                  </div>
+                  <div class="skill-bar-track">
+                    <div class="skill-bar-fill" data-percent="90"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Design Capabilities Column -->
+            <div class="skills-column">
+              <h3 class="skills-column-title"><i class="fa-solid fa-pen-nib"></i> Graphic &amp; Visual Arts</h3>
+              <div class="skills-container">
+                
+                <div class="skill-bar-wrapper">
+                  <div class="skill-info">
+                    <span class="skill-name">Vector Branding &amp; Typography</span>
+                    <span class="skill-percent">95%</span>
+                  </div>
+                  <div class="skill-bar-track">
+                    <div class="skill-bar-fill" data-percent="95"></div>
+                  </div>
+                </div>
+
+                <div class="skill-bar-wrapper">
+                  <div class="skill-info">
+                    <span class="skill-name">Digital Collateral &amp; Social Layouts</span>
+                    <span class="skill-percent">92%</span>
+                  </div>
+                  <div class="skill-bar-track">
+                    <div class="skill-bar-fill" data-percent="92"></div>
+                  </div>
+                </div>
+
+                <div class="skill-bar-wrapper">
+                  <div class="skill-info">
+                    <span class="skill-name">Aesthetic Print &amp; Packaging Design</span>
+                    <span class="skill-percent">88%</span>
+                  </div>
+                  <div class="skill-bar-track">
+                    <div class="skill-bar-fill" data-percent="88"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. PROJECTS PORTFOLIO SECTION -->
+    <section class="projects" id="projects">
+      <div class="container">
+        
+        <div class="portfolio-intro">
+          <div>
+            <span class="sub-title">Featured Works</span>
+            <h2 class="section-title">Selected projects from our lab</h2>
+            <p class="section-desc">A brief showcase of products engineered and brand identities designed. Fusing deep aesthetic strategy with bulletproof code.</p>
+          </div>
+          
+          <!-- Category filters -->
+          <div class="filter-controls">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="dev">Development</button>
+            <button class="filter-btn" data-filter="design">Branding</button>
+          </div>
+        </div>
+
+        <!-- Project Grid -->
+        <div class="portfolio-grid" id="portfolioGrid">
+          
+          <!-- Project 1 (SaaS dashboard - Dev) -->
+          <article class="project-card" data-category="dev">
+            <div class="project-img-wrapper">
+              <img class="project-img" src="assets/images/project1.png" alt="Metrica Performance Hub">
+              <div class="project-img-overlay"></div>
+              <span class="project-badge">Next.js Web App</span>
+              <a href="#contact" class="project-link-btn" aria-label="View Project Details"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="project-tag">Front-End Development</span>
+                <span class="project-tag">API Integration</span>
+              </div>
+              <h3 class="project-title">Metrica Performance Hub</h3>
+              <p class="project-desc">A premium SaaS analytics platform dashboard engineered with glassmorphism layout controls, lightning-fast rendering speeds, and glowing visual metrics.</p>
+            </div>
+          </article>
+
+          <!-- Project 2 (Cosmetic packaging - Design) -->
+          <article class="project-card" data-category="design">
+            <div class="project-img-wrapper">
+              <img class="project-img" src="assets/images/project2.png" alt="Aurélia Skincare Branding">
+              <div class="project-img-overlay"></div>
+              <span class="project-badge">Visual Identity</span>
+              <a href="#contact" class="project-link-btn" aria-label="View Project Details"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="project-tag">Graphic Design</span>
+                <span class="project-tag">Logo &amp; Brand Kit</span>
+              </div>
+              <h3 class="project-title">Aurélia Skincare Paris</h3>
+              <p class="project-desc">Complete corporate brand identity for a luxury Parisian skincare house. Created geometric vector typography, visual assets, packaging guidelines, and mock rendering.</p>
+            </div>
+          </article>
+
+          <!-- Project 3 (E-commerce - Both) -->
+          <article class="project-card" data-category="dev">
+            <div class="project-img-wrapper">
+              <img class="project-img" src="assets/images/project3.png" alt="Velourra Urban Fashion Platform">
+              <div class="project-img-overlay"></div>
+              <span class="project-badge">Full-Stack Digital Product</span>
+              <a href="#contact" class="project-link-btn" aria-label="View Project Details"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="project-tag">E-Commerce Dev</span>
+                <span class="project-tag">Brand Strategy</span>
+              </div>
+              <h3 class="project-title">Velourra Fashion App</h3>
+              <p class="project-desc">Engineering and branding of a sleek apparel marketplace interface. Structured a highly responsive, custom-designed neomorphic storefront with purple neon accents.</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. SERVICES & RATES SECTION (WITH REAL-TIME SLIDER CALCULATOR) -->
+    <section class="rates" id="rates">
+      <div class="container">
+        
+        <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+          <span class="sub-title">What We Charge</span>
+          <h2 class="section-title">Transparent packages &amp; rates</h2>
+          <p class="section-desc">No hidden fees. Pick one of our curated baseline bundles, or use our interactive project calculator below to estimate a custom quote instantly.</p>
+        </div>
+
+        <!-- baseline packages -->
+        <div class="services-grid">
+          
+          <!-- Box 1: Brand Design -->
+          <div class="service-card">
+            <div class="service-icon-box"><i class="fa-solid fa-pen-fancy"></i></div>
+            <h3 class="service-title">Digital Branding Kit</h3>
+            <div class="service-price">₹3,499<span>/ project</span></div>
+            <ul class="service-features">
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Geometric Custom Vector Logo</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Secondary Logos &amp; App Icons</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Harmonious Color Palette Tokens</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Brand Style &amp; Typography Guide</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> High-Res Vector Deliverables</li>
+            </ul>
+            <a href="#contact" class="btn btn-secondary" style="width: 100%;">Book Package</a>
+          </div>
+
+          <!-- Box 2: Custom Website (Popular) -->
+          <div class="service-card popular">
+            <span class="popular-badge">Recommended</span>
+            <div class="service-icon-box" style="background: rgba(255, 0, 128, 0.1); color: var(--color-pink); border-color: rgba(255, 0, 128, 0.15);"><i class="fa-solid fa-laptop-code"></i></div>
+            <h3 class="service-title">Launchpad Website</h3>
+            <div class="service-price">₹6,499<span>/ project</span></div>
+            <ul class="service-features">
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Up to 5 Responsive Glass Layouts</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Modern Next.js / Static SPA Build</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Blistering Speed Optimization</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Complete Core SEO Setup</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Fluid CSS &amp; Micro-Animations</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary" style="width: 100%;">Book Package</a>
+          </div>
+
+          <!-- Box 3: Omni Synergy -->
+          <div class="service-card">
+            <div class="service-icon-box"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h3 class="service-title">The Omni Synergy</h3>
+            <div class="service-price">₹9,499<span>/ project</span></div>
+            <ul class="service-features">
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Full Brand Identity &amp; Logo Suite</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> High-Fidelity UI/UX Mockup Prototypes</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Custom E-Commerce or Portal Web System</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> Advanced WebGL or Scroll Interactions</li>
+              <li class="service-feature"><i class="fa-solid fa-check"></i> 6 Months Technical Support</li>
+            </ul>
+            <a href="#contact" class="btn btn-secondary" style="width: 100%;">Book Package</a>
+          </div>
+
+        </div>
+
+        <!-- --- WOW-FACTOR INTERACTIVE RATE ESTIMATOR --- -->
+        <div class="calculator-box">
+          <h3 class="calculator-title"><i class="fa-solid fa-sliders"></i> Build Your Custom Project</h3>
+          <p class="calculator-desc">Adjust sliders and check visual requirements to receive an immediate estimate of your project cost and timeline.</p>
+          
+          <div class="calculator-grid">
+            
+            <div class="calc-sliders">
+              <!-- Slider 1: Pages -->
+              <div class="calc-control-group">
+                <div class="calc-label-row">
+                  <span class="calc-label-title">Pages Required</span>
+                  <span class="calc-label-val"><span id="calc-pages-val">3</span> Pages</span>
+                </div>
+                <input type="range" id="calc-pages" min="1" max="15" value="3" aria-label="Pages required slider">
+              </div>
+
+              <!-- Feature Add-ons Checkboxes -->
+              <div class="calc-control-group" style="margin-top: 1rem;">
+                <span class="calc-label-title" style="font-weight: 600; margin-bottom: 0.5rem; display: inline-block;">Include Design &amp; Optimization Add-ons</span>
+                <div class="calc-features-grid">
+                  
+                  <label class="checkbox-card">
+                    <input type="checkbox" id="addon-logo" value="449">
+                    <div class="checkbox-card-info">
+                      <span class="checkbox-card-title">Brand Logo &amp; Identity</span>
+                      <span class="checkbox-card-price">+&#8377;449</span>
+                    </div>
+                  </label>
+
+                  <label class="checkbox-card">
+                    <input type="checkbox" id="addon-uiux" value="849" checked>
+                    <div class="checkbox-card-info">
+                      <span class="checkbox-card-title">UX Wireframing &amp; Prototyping</span>
+                      <span class="checkbox-card-price">+&#8377;849</span>
+                    </div>
+                  </label>
+
+                  <label class="checkbox-card">
+                    <input type="checkbox" id="addon-anim" value="649" checked>
+                    <div class="checkbox-card-info">
+                      <span class="checkbox-card-title">Advanced Web Motion/Glow</span>
+                      <span class="checkbox-card-price">+&#8377;649</span>
+                    </div>
+                  </label>
+
+                  <label class="checkbox-card">
+                    <input type="checkbox" id="addon-seo" value="1449">
+                    <div class="checkbox-card-info">
+                      <span class="checkbox-card-title">Complete SEO Auditing</span>
+                      <span class="checkbox-card-price">+&#8377;1449</span>
+                    </div>
+                  </label>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Output Card -->
+            <div class="calc-result-panel">
+              <span class="result-title">Estimated Investment</span>
+              <div class="result-price-box">
+                <span class="result-currency">&#8377;</span>
+                <span class="result-price-val" id="estimated-price-val">6,497</span>
+              </div>
+              <div class="result-timeline">
+                <i class="fa-regular fa-clock"></i> <span id="estimated-timeline-val">~12 business days</span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 2rem; max-width: 250px;">This represents a baseline studio quote. Final scopes are mapped during direct alignment calls.</p>
+              <a href="#contact" class="btn btn-primary calc-submit-btn">Reserve Design Slot <i class="fa-solid fa-calendar-check"></i></a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 9. CONTACT US SECTION (WITH GLASS SUBMIT ACTION) -->
+    <section class="contact" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-info-panel">
+          <div>
+            <span class="sub-title">Say Hello</span>
+            <h2 class="section-title">Let's craft something legendary</h2>
+            <p class="section-desc">Ready to scale your digital presence? We respond to serious inquiries in less than 24 hours. Send us details or book a slot.</p>
+          </div>
+          
+          <div class="contact-card-list">
+            
+            <div class="contact-info-card">
+              <div class="contact-icon-box"><i class="fa-regular fa-envelope"></i></div>
+              <div class="contact-card-details">
+                <h4>Write to our studio</h4>
+                <p><a href="mailto:vyqodsgn@gmail.com">vyqodsgn@gmail.com</a></p>
+              </div>
+            </div>
+
+            <div class="contact-info-card">
+              <div class="contact-icon-box" style="background: rgba(37, 211, 102, 0.1); color: #25D366; border-color: rgba(37, 211, 102, 0.15);"><i class="fa-brands fa-whatsapp"></i></div>
+              <div class="contact-card-details">
+                <h4>WhatsApp us directly</h4>
+                <p><a href="https://wa.me/918943262406" target="_blank" rel="noopener noreferrer">+91 89432 62406</a></p>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <h4 style="font-size: 1.05rem; font-weight: 700; color: #ffffff;">Join our social channels</h4>
+            <div class="contact-socials-row">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="VYQO on LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="https://www.instagram.com/vyqodsgn?igsh=MnZudW8ybDh2OXc2" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="VYQO on Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="VYQO on X"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-circle-btn" aria-label="VYQO on GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-panel">
+          
+          <!-- Glass Success Overlay inside container -->
+          <div class="success-overlay">
+            <div class="success-icon-ring"><i class="fa-solid fa-check"></i></div>
+            <h3>Message Sent!</h3>
+            <p>Our creative director will review your details and reach out via email in less than 24 hours to schedule an alignment call.</p>
+            <button class="btn btn-secondary" id="btn-close-success">Done</button>
+          </div>
+
+          <form class="contact-form" id="contactForm" action="#" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <input type="text" id="contact-name" placeholder=" " required autocomplete="name">
+                <label for="contact-name">Your Name</label>
+              </div>
+              <div class="form-group">
+                <input type="email" id="contact-email" placeholder=" " required autocomplete="email">
+                <label for="contact-email">Email Address</label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <input type="text" id="contact-project" placeholder=" " autocomplete="off">
+              <label for="contact-project">Project Scope (e.g. Branding + Website)</label>
+            </div>
+
+            <div class="form-group">
+              <textarea id="contact-message" placeholder=" " required></textarea>
+              <label for="contact-message">Tell us about your objectives...</label>
+            </div>
+
+            <div class="submit-btn-wrapper">
+              <button type="submit" class="btn btn-primary contact-submit-btn">Send Message <i class="fa-regular fa-paper-plane"></i></button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 10. FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      
+      <div class="footer-logo-col">
+        <a href="#hero" class="logo-container" style="height: 36px; width: 130px;" aria-label="VYQO Home">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 365 100">
+            <polygon points="5,10 27,10 47,72 67,10 89,10 57,90 37,90" fill="#ffffff" />
+            <path d="M 90 10 L 111 10 L 130 50 L 149 10 L 170 10 L 140 70 L 140 90 L 120 90 L 120 70 Z" fill="#ffffff" />
+            <g>
+              <path d="M 220 10 A 40 40 0 1 0 220 90 A 40 40 0 1 0 220 10 Z M 220 26 A 24 24 0 1 1 220 74 A 24 24 0 1 1 220 26 Z" fill="#ffffff" fill-rule="evenodd" />
+              <rect x="244" y="70" width="18" height="38" rx="9" transform="rotate(-45 244 70)" fill="url(#nav-vyqo-accent-grad)" />
+            </g>
+            <path d="M 310 10 A 40 40 0 1 0 310 90 A 40 40 0 1 0 310 10 Z M 310 26 A 24 24 0 1 1 310 74 A 24 24 0 1 1 310 26 Z" fill="#ffffff" fill-rule="evenodd" />
+          </svg>
+        </a>
+        <p class="footer-desc">Fusing elegant visual branding with high-performance web applications. Let's make your digital product elite.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="#hero">Home</a></li>
+          <li class="footer-link"><a href="#about">About Us</a></li>
+          <li class="footer-link"><a href="#skills">Expertise</a></li>
+          <li class="footer-link"><a href="#projects">Portfolio</a></li>
+          <li class="footer-link"><a href="#rates">Services &amp; Rates</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="#rates">Web Design</a></li>
+          <li class="footer-link"><a href="#rates">Next.js Development</a></li>
+          <li class="footer-link"><a href="#rates">Branding Suite</a></li>
+          <li class="footer-link"><a href="#rates">UX Wireframing</a></li>
+          <li class="footer-link"><a href="#rates">Graphic Consulting</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>Stay in the loop</h4>
+        <p>Subscribe to receive insights on branding patterns and web speed tips.</p>
+        <form class="newsletter-form" action="#" method="POST" onsubmit="event.preventDefault(); this.querySelector('input').value=''; alert('Subscribed successfully!');">
+          <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email for newsletter">
+          <button type="submit" class="btn btn-primary newsletter-btn">Join</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="container footer-bottom">
+      <p class="copyright">&copy; 2026 VYQO Studios. All rights reserved. Created with absolute craftsmanship.</p>
+      <ul class="footer-bottom-links">
+        <li class="footer-bottom-link"><a href="#hero">Privacy Policy</a></li>
+        <li class="footer-bottom-link"><a href="#hero">Terms of Service</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
