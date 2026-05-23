@@ -2113,8 +2113,14 @@ footer {
     padding: 0 1.25rem;
   }
 
+  .form-group {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
   /* Mobile Static Labels & Auto-Zoom Fix */
   .form-group label {
+    order: -1 !important;
     position: static !important;
     display: block !important;
     margin-bottom: 0.5rem !important;
