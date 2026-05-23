@@ -55,6 +55,9 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: var(--color-purple) var(--color-bg-dark);
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 body {
@@ -62,6 +65,8 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-body);
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
   line-height: 1.6;
   position: relative;
   -webkit-font-smoothing: antialiased;
@@ -1143,7 +1148,7 @@ section {
 /* Project grid */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
   gap: 2.5rem;
 }
 
@@ -2095,6 +2100,10 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
   .nav-links {
     position: fixed;
     top: 0;
@@ -2116,6 +2125,20 @@ footer {
   
   .nav-links.active {
     right: 0;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .art-panel-code {
+    right: 0% !important;
+    width: 60% !important;
+  }
+
+  .art-panel-design {
+    right: 0% !important;
+    width: 45% !important;
   }
   
   .hamburger {
@@ -2186,6 +2209,12 @@ footer {
   }
 }
 
+@media (max-width: 576px) {
+  .tab-points {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-stats {
     flex-direction: column;
@@ -2194,6 +2223,11 @@ footer {
   
   .portfolio-grid {
     grid-template-columns: 1fr;
+  }
+
+  .radial-skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
