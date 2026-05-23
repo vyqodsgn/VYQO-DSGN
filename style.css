@@ -2151,7 +2151,7 @@ footer {
   .nav-links {
     position: fixed;
     top: 0;
-    right: -100%;
+    right: 0;
     width: 80%;
     max-width: 320px;
     height: 100vh;
@@ -2163,12 +2163,13 @@ footer {
     justify-content: center;
     gap: 2.5rem;
     padding: 3rem;
+    transform: translateX(100%);
     transition: var(--transition-smooth);
     z-index: 99;
   }
   
   .nav-links.active {
-    right: 0;
+    transform: translateX(0);
   }
 
   .nav-cta {
@@ -2270,6 +2271,19 @@ footer {
   .contact-card-details p, .contact-card-details a {
     font-size: 0.9rem !important;
     word-break: break-all !important;
+  }
+
+  .filter-controls {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    border-radius: 24px !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+  
+  .filter-btn {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.85rem !important;
   }
 }
 
