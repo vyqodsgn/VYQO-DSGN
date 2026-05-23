@@ -2255,6 +2255,16 @@ footer {
   .media-quote {
     font-size: 1.2rem !important;
   }
+
+  .contact-info-card {
+    padding: 1.25rem 1rem !important;
+    gap: 1rem !important;
+  }
+  
+  .contact-card-details p, .contact-card-details a {
+    font-size: 0.9rem !important;
+    word-break: break-all !important;
+  }
 }
 
 @media (max-width: 576px) {
