@@ -2310,12 +2310,12 @@ footer {
 }
 
 /* -----------------------------------------
-   11. PAGE LOADER (Forest & Lime Theme)
+   11. PAGE LOADER (Neon Violet Theme)
 ----------------------------------------- */
 :root {
-  --loader-bg: #0d120a;
-  --loader-color: #99ff00;
-  --loader-color-glow: rgba(153, 255, 0, 0.35);
+  --loader-bg: #07070a;
+  --loader-color: #bd34fe;
+  --loader-color-glow: rgba(189, 52, 254, 0.35);
 }
 
 .page-loader {
@@ -2408,7 +2408,7 @@ footer {
   font-family: var(--font-body);
   font-size: clamp(0.7rem, 1.8vw, 0.8rem);
   font-weight: 600;
-  color: #6a7c64;
+  color: #8f7ea6;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   height: 20px; /* Prevents layout shifting when text updates */

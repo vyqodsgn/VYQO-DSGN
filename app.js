@@ -70,30 +70,30 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    // Smooth loading simulator with variable progress increments
+    // Smooth loading simulator with variable progress increments (adjusted for slower progression)
     let currentStep = 0;
     loadingInterval = setInterval(() => {
       if (isFullyLoaded) {
         // Accelerate loading once window finishes loading assets
-        currentStep += Math.random() * 4 + 2;
+        currentStep += Math.random() * 3 + 1.5;
         updateProgress(currentStep);
       } else {
         // Smooth simulated loading
         if (currentStep < 30) {
-          currentStep += Math.random() * 2.5 + 0.8;
+          currentStep += Math.random() * 1.5 + 0.5;
         } else if (currentStep < 60) {
-          currentStep += Math.random() * 1.5 + 0.4;
+          currentStep += Math.random() * 1.0 + 0.3;
         } else if (currentStep < 88) {
-          currentStep += Math.random() * 0.8 + 0.2;
+          currentStep += Math.random() * 0.5 + 0.1;
         } else if (currentStep < 97) {
-          currentStep += Math.random() * 0.3 + 0.05;
+          currentStep += Math.random() * 0.15 + 0.02;
         } else {
           // Hold at 97% until window load event fires
           currentStep = 97;
         }
         updateProgress(currentStep);
       }
-    }, 45);
+    }, 65);
 
     // Track when all styles, images, and resources are fully loaded
     window.addEventListener('load', () => {
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fallback: in case page assets fail to fire load event, force complete
     setTimeout(() => {
       isFullyLoaded = true;
-    }, 5000);
+    }, 7000);
   }
 
   /* ==========================================================================
