@@ -2428,6 +2428,10 @@ footer {
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .loader-circle-wrapper {
@@ -2437,6 +2441,11 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .loader-svg {
@@ -2446,6 +2455,11 @@ footer {
   width: 100%;
   height: 100%;
   transform: rotate(-90deg); /* Start progress at the top (12 o'clock) */
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .loader-circle-track {
