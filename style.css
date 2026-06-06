@@ -2634,7 +2634,8 @@ footer {
   background-color: transparent !important;
   background-image: none !important;
   border: none !important;
-  box-shadow: none !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 35px rgba(167, 139, 250, 0.15) !important;
 }
 
 .loader-svg {
@@ -2665,7 +2666,6 @@ footer {
   stroke-dasharray: 339.3;
   stroke-dashoffset: 339.3;
   transition: stroke-dashoffset 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-  filter: drop-shadow(0 0 10px var(--loader-color-glow)) drop-shadow(0 0 20px var(--loader-color-glow));
 }
 
 .loader-text {
@@ -2686,7 +2686,6 @@ footer {
   font-weight: 700;
   color: var(--loader-color);
   letter-spacing: 0.05em;
-  filter: drop-shadow(0 0 4px var(--loader-color-glow));
 }
 
 .loader-status {
@@ -2706,12 +2705,10 @@ footer {
   0%, 100% {
     opacity: 0.8;
     transform: scale(0.97);
-    filter: blur(0px);
   }
   50% {
     opacity: 1;
     transform: scale(1.03);
-    filter: drop-shadow(0 0 2px rgba(255,255,255,0.1));
   }
 }
 
