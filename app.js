@@ -331,12 +331,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (category === 'all' || cardCategory === category) {
           card.classList.remove('hidden');
-          // Restart entrance animation
-          card.style.animation = 'none';
-          card.offsetHeight; // Trigger reflow to restart animation
-          card.style.animation = 'card-reveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+          card.style.transitionDelay = '0ms';
+          card.classList.remove('animate-in');
+          card.offsetHeight; // Force reflow
+          card.classList.add('animate-in');
         } else {
           card.classList.add('hidden');
+          card.classList.remove('animate-in');
         }
       });
     });
@@ -571,5 +572,112 @@ document.addEventListener('DOMContentLoaded', () => {
       gridContainer.style.webkitMaskImage = `radial-gradient(ellipse 50% 50% at ${xPercent}% ${yPercent}%, #000 30%, transparent 100%)`;
     });
   }
+
+  /* ==========================================================================
+     9. SCROLL-TRIGGERED ENTRANCE ANIMATIONS (INTERSECTION OBSERVER)
+     ========================================================================== */
+  // 9.1 Set up Section Title animations
+  const sectionTitles = document.querySelectorAll('.section-title');
+  const titleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        titleObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  sectionTitles.forEach(title => titleObserver.observe(title));
+
+  // 9.2 Set up Divider Line animations
+  const dividerLines = document.querySelectorAll('.divider-line');
+  const dividerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        dividerObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  dividerLines.forEach(line => dividerObserver.observe(line));
+
+  // 9.3 Set up Card animations with dynamic staggering (80ms spacing)
+  const animatedCards = document.querySelectorAll('.radial-skill-card, .skills-column, .project-card, .service-card');
+  let cardStaggerDelay = 0;
+  let staggerTimeout = null;
+
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        card.style.transitionDelay = `${cardStaggerDelay}ms`;
+        card.classList.add('animate-in');
+        cardStaggerDelay += 80; // Stagger each card by 80ms
+        cardObserver.unobserve(card);
+
+        // Reset the delay stack after cards in the current view are animated
+        if (staggerTimeout) clearTimeout(staggerTimeout);
+        staggerTimeout = setTimeout(() => {
+          cardStaggerDelay = 0;
+        }, 150);
+      }
+    });
+  }, { threshold: 0.1 });
+  animatedCards.forEach(card => cardObserver.observe(card));
+
+  // 9.4 Set up Images/Visuals scale-in animations
+  const animatedVisuals = document.querySelectorAll('.project-img, .canvas-card, .about-media');
+  const visualObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        visualObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  animatedVisuals.forEach(visual => visualObserver.observe(visual));
+
+  // 9.5 Set up Stat Numbers count up animation with easeOutExpo curve (1.4s)
+  const statNumbers = document.querySelectorAll('.stat-num');
+  
+  const countUpValue = (el) => {
+    const fullText = el.textContent.trim();
+    // Parse target number
+    const targetVal = parseInt(fullText.replace(/[^0-9]/g, ''), 10);
+    if (isNaN(targetVal)) return;
+
+    // Parse suffix (+ or %)
+    const suffix = fullText.replace(/[0-9]/g, '');
+
+    const duration = 1400; // 1.4s
+    const startTime = performance.now();
+
+    const animateCount = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // easeOutExpo curve
+      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const currentVal = Math.floor(easeProgress * targetVal);
+
+      el.innerHTML = `${currentVal}<span>${suffix}</span>`;
+
+      if (progress < 1) {
+        requestAnimationFrame(animateCount);
+      } else {
+        el.innerHTML = `${targetVal}<span>${suffix}</span>`;
+      }
+    };
+    requestAnimationFrame(animateCount);
+  };
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        countUpValue(entry.target);
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  statNumbers.forEach(stat => statsObserver.observe(stat));
 
 });

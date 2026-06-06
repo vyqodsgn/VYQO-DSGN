@@ -258,6 +258,14 @@ section {
   background: var(--color-gradient-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-title.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .section-desc {
@@ -549,8 +557,16 @@ section {
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
-  animation: float-card 6s infinite alternate ease-in-out;
   cursor: pointer;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.canvas-card.animate-in {
+  opacity: 1;
+  transform: scale(1);
+  animation: float-card 6s infinite alternate ease-in-out 0.6s;
 }
 
 @keyframes float-card {
@@ -1167,12 +1183,20 @@ section {
   -webkit-backdrop-filter: var(--glass-blur);
   overflow: hidden;
   box-shadow: var(--glass-card-shadow);
-  transition: var(--transition-smooth);
   display: flex;
   flex-direction: column;
   opacity: 0;
-  transform: translateY(30px);
-  animation: card-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateY(40px);
+  transition: 
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .project-card.hidden {
@@ -2540,6 +2564,71 @@ html, body, a, button, input, select, textarea, [role="button"], label, .checkbo
   transform: translate(-50%, -50%) scale(0);
 }
 
+/* -----------------------------------------
+   13. SCROLL-TRIGGERED ENTRANCE ANIMATIONS
+----------------------------------------- */
+/* Cards */
+.radial-skill-card,
+.skills-column,
+.service-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.radial-skill-card.animate-in,
+.skills-column.animate-in,
+.service-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: 
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Images & Thumbnails */
+.project-img,
+.about-media {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-img.animate-in {
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.about-media.animate-in {
+  opacity: 1;
+  transform: scale(1);
+  transition: 
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Horizontal Dividers */
+.divider-line {
+  width: 0%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent) 50%, transparent);
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.divider-line.animate-in {
+  width: 100%;
+}
+
 /* Accessibility: Respect Reduced Motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -2561,9 +2650,30 @@ html, body, a, button, input, select, textarea, [role="button"], label, .checkbo
   }
 
   html, body, a, button, input, select, textarea, [role="button"], label, .checkbox-card, .btn, .nav-link, .filter-btn, .tab-btn, .social-circle-btn {
-    cursor: auto !important;
+    cursor: revert !important;
   }
   .custom-cursor-dot, .custom-cursor-ring {
     display: none !important;
+  }
+
+  .section-title,
+  .radial-skill-card,
+  .skills-column,
+  .project-card,
+  .service-card,
+  .project-img,
+  .canvas-card,
+  .about-media {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .divider-line {
+    opacity: 1 !important;
+    width: 100% !important;
+    transform: translateX(-50%) !important;
+    transition: none !important;
   }
 }
