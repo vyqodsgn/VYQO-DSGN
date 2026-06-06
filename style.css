@@ -122,7 +122,7 @@ a {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -2;
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
@@ -519,7 +519,7 @@ section {
 }
 
 .hero-title {
-  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 900;
   letter-spacing: -0.03em;
   margin-bottom: 1.5rem;
@@ -2038,10 +2038,12 @@ input[type=range]::-webkit-slider-thumb:hover {
 ----------------------------------------- */
 footer {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(7, 7, 10, 0.95);
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   padding: 6rem 0 3rem 0;
   position: relative;
-  z-index: 10;
+  z-index: 1;
 }
 
 .footer-grid {
@@ -2080,11 +2082,11 @@ footer {
 
 .footer-link a {
   font-size: 0.95rem;
-  color: var(--color-text-secondary);
+  color: #ffffff;
 }
 
 .footer-link a:hover {
-  color: var(--color-pink);
+  color: #A78BFA;
   transform: translateX(3px);
   display: inline-block;
 }
@@ -2147,11 +2149,11 @@ footer {
 
 .footer-bottom-link a {
   font-size: 0.9rem;
-  color: var(--color-text-muted);
+  color: #ffffff;
 }
 
 .footer-bottom-link a:hover {
-  color: #ffffff;
+  color: #A78BFA;
 }
 
 /* -----------------------------------------
@@ -2513,8 +2515,8 @@ footer {
 /* -----------------------------------------
    12. CUSTOM CURSOR SYSTEM
 ----------------------------------------- */
-/* Hide default cursor on entire page */
-html, body, a, button, input, select, textarea, [role="button"], label, .checkbox-card, .btn, .nav-link, .filter-btn, .tab-btn, .social-circle-btn {
+/* Hide default cursor globally on entire page */
+html, body, * {
   cursor: none !important;
 }
 
@@ -2527,7 +2529,7 @@ html, body, a, button, input, select, textarea, [role="button"], label, .checkbo
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 1000000;
+  z-index: 9999;
   transform: translate(-50%, -50%);
   transition: opacity 0.2s ease, transform 0.2s ease;
   opacity: 0;
@@ -2543,7 +2545,7 @@ html, body, a, button, input, select, textarea, [role="button"], label, .checkbo
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 999999;
+  z-index: 9998;
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
@@ -2724,7 +2726,7 @@ html, body, a, button, input, select, textarea, [role="button"], label, .checkbo
     transition: none !important;
   }
 
-  html, body, a, button, input, select, textarea, [role="button"], label, .checkbox-card, .btn, .nav-link, .filter-btn, .tab-btn, .social-circle-btn {
+  * {
     cursor: revert !important;
   }
   .custom-cursor-dot, .custom-cursor-ring {
@@ -2755,5 +2757,52 @@ html, body, a, button, input, select, textarea, [role="button"], label, .checkbo
     width: 100% !important;
     transform: translateX(-50%) !important;
     transition: none !important;
+  }
+}
+
+/* -----------------------------------------
+   15. CONTENT Z-INDEX & GLOBAL LINKS UNDERLINE
+----------------------------------------- */
+header, main, footer {
+  position: relative;
+  z-index: 1;
+}
+
+a:not(.btn):not(.logo-link):not(.social-circle-btn):not(.nav-link) {
+  position: relative;
+  text-decoration: none !important;
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+a:not(.btn):not(.logo-link):not(.social-circle-btn):not(.nav-link)::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #A78BFA;
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+a:not(.btn):not(.logo-link):not(.social-circle-btn):not(.nav-link):hover {
+  color: #A78BFA;
+}
+
+a:not(.btn):not(.logo-link):not(.social-circle-btn):not(.nav-link):hover::after {
+  transform: scaleX(1);
+}
+
+/* 16. MOBILE (BELOW 768px) CURSOR & INTERACTION OVERRIDES */
+@media (max-width: 768px) {
+  * {
+    cursor: revert !important;
+  }
+  
+  .custom-cursor-dot, .custom-cursor-ring {
+    display: none !important;
   }
 }

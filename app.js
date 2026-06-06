@@ -140,96 +140,117 @@ document.addEventListener('DOMContentLoaded', () => {
   let ringX = 0;
   let ringY = 0;
   let isFirstMove = true;
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const checkCursorVisibility = () => {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isMobile = window.innerWidth < 768;
+    if (isTouch || isMobile) {
+      cursorDot.style.display = 'none';
+      cursorRing.style.display = 'none';
+    } else {
+      cursorDot.style.display = '';
+      cursorRing.style.display = '';
+    }
+  };
 
-  if (isTouchDevice) {
-    cursorDot.style.display = 'none';
-    cursorRing.style.display = 'none';
-  } else {
-    // 1. Mousemove updates
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+  window.addEventListener('resize', checkCursorVisibility);
+  checkCursorVisibility();
 
-      // Update dot position instantly
-      cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
+  // 1. Mousemove updates
+  window.addEventListener('mousemove', (e) => {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isMobile = window.innerWidth < 768;
+    if (isTouch || isMobile) return;
 
-      if (isFirstMove) {
-        ringX = mouseX;
-        ringY = mouseY;
-        isFirstMove = false;
-        cursorDot.style.opacity = '1';
-        cursorRing.style.opacity = '1';
-      }
+    mouseX = e.clientX;
+    mouseY = e.clientY;
 
-      // 2. Hover states checks
-      const target = e.target;
-      if (target) {
-        // Clear previous state classes
-        cursorRing.classList.remove('hover-cta', 'hover-text', 'hover-project');
-        cursorDot.classList.remove('hover-cta', 'hover-text', 'hover-project');
+    // Update dot position instantly
+    cursorDot.style.left = `${mouseX}px`;
+    cursorDot.style.top = `${mouseY}px`;
 
-        // Check selectors
-        if (
-          target.closest('.btn') || 
-          target.closest('.filter-btn') || 
-          target.closest('.tab-btn') || 
-          target.closest('.social-circle-btn') || 
-          target.closest('button') || 
-          target.closest('.nav-link') ||
-          target.closest('a') ||
-          target.closest('.checkbox-card') ||
-          target.closest('input[type="submit"]') ||
-          target.closest('.hamburger')
-        ) {
-          cursorRing.classList.add('hover-cta');
-          cursorDot.classList.add('hover-cta');
-        } else if (
-          target.closest('.project-card') || 
-          target.closest('img') || 
-          target.closest('.canvas-container') ||
-          target.closest('.about-visual')
-        ) {
-          cursorRing.classList.add('hover-project');
-          cursorDot.classList.add('hover-project');
-        } else if (
-          target.closest('h1, h2, h3, h4, h5, h6, p, span, li')
-        ) {
-          // Avoid text hover trigger on elements inside buttons/cards
-          if (!target.closest('.btn') && !target.closest('a') && !target.closest('button') && !target.closest('.project-card') && !target.closest('.checkbox-card')) {
-            cursorRing.classList.add('hover-text');
-            cursorDot.classList.add('hover-text');
-          }
+    if (isFirstMove) {
+      ringX = mouseX;
+      ringY = mouseY;
+      isFirstMove = false;
+      cursorDot.style.opacity = '1';
+      cursorRing.style.opacity = '1';
+    }
+
+    // 2. Hover states checks
+    const target = e.target;
+    if (target) {
+      // Clear previous state classes
+      cursorRing.classList.remove('hover-cta', 'hover-text', 'hover-project');
+      cursorDot.classList.remove('hover-cta', 'hover-text', 'hover-project');
+
+      // Check selectors
+      if (
+        target.closest('.btn') || 
+        target.closest('.filter-btn') || 
+        target.closest('.tab-btn') || 
+        target.closest('.social-circle-btn') || 
+        target.closest('button') || 
+        target.closest('.nav-link') ||
+        target.closest('a') ||
+        target.closest('.checkbox-card') ||
+        target.closest('input[type="submit"]') ||
+        target.closest('.hamburger')
+      ) {
+        cursorRing.classList.add('hover-cta');
+        cursorDot.classList.add('hover-cta');
+      } else if (
+        target.closest('.project-card') || 
+        target.closest('img') || 
+        target.closest('.canvas-container') ||
+        target.closest('.about-visual')
+      ) {
+        cursorRing.classList.add('hover-project');
+        cursorDot.classList.add('hover-project');
+      } else if (
+        target.closest('h1, h2, h3, h4, h5, h6, p, span, li')
+      ) {
+        // Avoid text hover trigger on elements inside buttons/cards
+        if (!target.closest('.btn') && !target.closest('a') && !target.closest('button') && !target.closest('.project-card') && !target.closest('.checkbox-card')) {
+          cursorRing.classList.add('hover-text');
+          cursorDot.classList.add('hover-text');
         }
       }
-    });
+    }
+  });
 
-    // 3. Hide cursor when leaving window
-    document.addEventListener('mouseleave', () => {
-      cursorDot.style.opacity = '0';
-      cursorRing.style.opacity = '0';
-    });
-    
-    document.addEventListener('mouseenter', () => {
-      if (!isFirstMove) {
-        cursorDot.style.opacity = '1';
-        cursorRing.style.opacity = '1';
-      }
-    });
+  // 3. Hide cursor when leaving window
+  document.addEventListener('mouseleave', () => {
+    cursorDot.style.opacity = '0';
+    cursorRing.style.opacity = '0';
+  });
+  
+  document.addEventListener('mouseenter', () => {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isMobile = window.innerWidth < 768;
+    if (isTouch || isMobile) return;
 
-    // 4. Smooth Lerp Animation Loop via requestAnimationFrame (easing factor 0.12)
-    const updateRingPosition = () => {
+    if (!isFirstMove) {
+      cursorDot.style.opacity = '1';
+      cursorRing.style.opacity = '1';
+    }
+  });
+
+  // 4. Smooth Lerp Animation Loop via requestAnimationFrame (easing factor 0.12)
+  const updateRingPosition = () => {
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isMobile = window.innerWidth < 768;
+
+    if (!isTouch && !isMobile) {
       ringX += (mouseX - ringX) * 0.12;
       ringY += (mouseY - ringY) * 0.12;
 
       cursorRing.style.left = `${ringX}px`;
       cursorRing.style.top = `${ringY}px`;
+    }
 
-      requestAnimationFrame(updateRingPosition);
-    };
     requestAnimationFrame(updateRingPosition);
-  }
+  };
+  requestAnimationFrame(updateRingPosition);
 
   /* ==========================================================================
      1. SCROLL TRACKING & PROGRESS BAR
@@ -771,7 +792,8 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', resizeCanvas);
 
     const particles = [];
-    const numParticles = 60;
+    const isMobile = window.innerWidth < 768;
+    const numParticles = isMobile ? 20 : 60;
     const repelRadius = 120;
 
     let mouse = { x: -1000, y: -1000 };
@@ -873,6 +895,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Mousemove for spotlight positions relative to button
       button.addEventListener('mousemove', (e) => {
+        if (window.innerWidth < 768) return;
         const rect = button.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
@@ -894,6 +917,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const handleGlobalMouseMove = (e) => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (window.innerWidth < 768) return;
 
         const rect = button.getBoundingClientRect();
         // Since button translates, rect.left / rect.top moves. 
