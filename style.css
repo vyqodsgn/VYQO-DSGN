@@ -1766,8 +1766,15 @@ input[type=range]::-webkit-slider-thumb:hover {
   font-family: var(--font-heading);
 }
 
+.result-price-val-container {
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+}
+
 .result-price-val {
-  font-size: 4rem;
+  font-size: clamp(3rem, 15vw, 7rem);
   font-weight: 900;
   color: #ffffff;
   font-family: var(--font-heading);
@@ -2387,6 +2394,13 @@ footer {
     max-width: 100% !important;
     padding-left: 16px !important;
     padding-right: 16px !important;
+    box-sizing: border-box !important;
+  }
+  
+  .calc-result-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 24px 20px !important;
     box-sizing: border-box !important;
   }
   
