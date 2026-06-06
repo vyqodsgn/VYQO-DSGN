@@ -1,6 +1,112 @@
 document.addEventListener('DOMContentLoaded', () => {
   
   /* ==========================================================================
+     0. PAGE LOADER WITH CURIOSITY STATUS TICKER
+     ========================================================================== */
+  const pageLoader = document.getElementById('pageLoader');
+  const loaderProgress = document.getElementById('loaderProgress');
+  const loaderPercent = document.getElementById('loaderPercent');
+  const loaderStatus = document.getElementById('loaderStatus');
+
+  if (pageLoader && loaderProgress && loaderPercent && loaderStatus) {
+    // 0.1 Prevent body scrolling during loading phase
+    document.body.style.overflow = 'hidden';
+
+    let progress = 0;
+    const circumference = 339.3; // 2 * Math.PI * 54
+    let loadingInterval;
+    let isFullyLoaded = false;
+
+    // Define status texts matching progress intervals to build curiosity
+    const getStatusText = (prog) => {
+      if (prog < 20) {
+        return "INITIATING STUDIOS...";
+      } else if (prog < 40) {
+        return "CRAFTING BRAND IDENTITIES...";
+      } else if (prog < 65) {
+        return "ENGINEERING WEB EXPERIENCES...";
+      } else if (prog < 85) {
+        return "INJECTING CREATIVE ARTISTRY...";
+      } else if (prog < 98) {
+        return "OPTIMIZING USER EXPERIENCE...";
+      } else {
+        return "PREPARING INTERFACE...";
+      }
+    };
+
+    const updateProgress = (value) => {
+      progress = Math.min(Math.max(value, 0), 100);
+      
+      // Update text indicators
+      loaderPercent.textContent = `${Math.round(progress)} %`;
+      
+      // Update SVG circular arc fill offset
+      const offset = circumference - (progress / 100) * circumference;
+      loaderProgress.style.strokeDashoffset = offset;
+
+      // Update curiosity status message
+      const statusText = getStatusText(progress);
+      if (loaderStatus.textContent !== statusText) {
+        loaderStatus.style.opacity = 0;
+        setTimeout(() => {
+          loaderStatus.textContent = statusText;
+          loaderStatus.style.opacity = 0.8;
+        }, 150);
+      }
+
+      if (progress >= 100) {
+        clearInterval(loadingInterval);
+        
+        // Hide loader overlay with transition
+        setTimeout(() => {
+          pageLoader.classList.add('fade-out');
+          document.body.style.overflow = ''; // Restore page scrolling
+          
+          // Clean up DOM after transition completes (600ms)
+          setTimeout(() => {
+            pageLoader.remove();
+          }, 600);
+        }, 400);
+      }
+    };
+
+    // Smooth loading simulator with variable progress increments
+    let currentStep = 0;
+    loadingInterval = setInterval(() => {
+      if (isFullyLoaded) {
+        // Accelerate loading once window finishes loading assets
+        currentStep += Math.random() * 4 + 2;
+        updateProgress(currentStep);
+      } else {
+        // Smooth simulated loading
+        if (currentStep < 30) {
+          currentStep += Math.random() * 2.5 + 0.8;
+        } else if (currentStep < 60) {
+          currentStep += Math.random() * 1.5 + 0.4;
+        } else if (currentStep < 88) {
+          currentStep += Math.random() * 0.8 + 0.2;
+        } else if (currentStep < 97) {
+          currentStep += Math.random() * 0.3 + 0.05;
+        } else {
+          // Hold at 97% until window load event fires
+          currentStep = 97;
+        }
+        updateProgress(currentStep);
+      }
+    }, 45);
+
+    // Track when all styles, images, and resources are fully loaded
+    window.addEventListener('load', () => {
+      isFullyLoaded = true;
+    });
+
+    // Fallback: in case page assets fail to fire load event, force complete
+    setTimeout(() => {
+      isFullyLoaded = true;
+    }, 5000);
+  }
+
+  /* ==========================================================================
      1. SCROLL TRACKING & PROGRESS BAR
      ========================================================================== */
   const scrollProgressBar = document.querySelector('.scroll-progress-bar');
