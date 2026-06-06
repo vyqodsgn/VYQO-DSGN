@@ -2,6 +2,7 @@
    1. DESIGN SYSTEM & ROOT VARIABLES
 ----------------------------------------- */
 :root {
+  overflow-x: hidden !important;
   /* Fonts */
   --font-heading: 'Syne', sans-serif;
   --font-body: 'DM Sans', sans-serif;
@@ -2439,18 +2440,143 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .hero-stats {
-    flex-direction: column;
-    gap: 1.5rem;
+  /* --- 1. Root & Overflow Edge Protection --- */
+  :root, html, body {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
   }
   
-  .portfolio-grid {
-    grid-template-columns: 1fr;
+  /* --- 2. Section Padding Consistency --- */
+  section, .hero, .about, .skills, .projects, .rates, .contact {
+    padding: 60px 20px !important;
   }
-
+  section .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* --- 3. Navigation Padding --- */
+  .header-nav .container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  
+  /* --- 4. Button Auto-width and Centering --- */
+  .btn {
+    width: 100% !important;
+    max-width: 320px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+  .hero-actions {
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+    gap: 1rem !important;
+  }
+  
+  /* --- 5. Newsletter Form Mobile Stacking --- */
+  .newsletter-form {
+    flex-direction: column !important;
+    border-radius: 16px !important;
+    padding: 0.75rem !important;
+    background: transparent !important;
+    border: none !important;
+    gap: 1rem !important;
+  }
+  .newsletter-input {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: var(--glass-card-border) !important;
+    border-radius: 50px !important;
+    padding: 0.85rem 1.25rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
+  .newsletter-btn {
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+  }
+  
+  /* --- 6. Section Specific Scale Fixes --- */
+  /* Hero Canvas Scale */
+  .canvas-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 340px !important;
+  }
+  .graphic-ring {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  .art-panel-code {
+    font-size: 0.65rem !important;
+    padding: 0.75rem !important;
+  }
+  .art-panel-main {
+    padding: 1rem !important;
+  }
+  .art-panel-design {
+    padding: 0.75rem !important;
+  }
+  .hero-stats {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+  }
+  
+  /* About Quote Card */
+  .about-media {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    min-height: auto !important;
+    padding: 1.5rem !important;
+    box-sizing: border-box !important;
+  }
+  .media-quote {
+    font-size: 1.15rem !important;
+  }
+  
+  /* Pricing & Estimator Cards */
+  .service-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 2rem 1.25rem !important;
+    box-sizing: border-box !important;
+  }
+  .calculator-box {
+    padding: 2rem 1.25rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .calc-result-panel {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  /* Contact Form Panel */
+  .contact-form-panel {
+    padding: 2rem 1.25rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Grids & Columns */
+  .portfolio-grid {
+    grid-template-columns: 1fr !important;
+  }
   .radial-skills-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
   }
 }
 
