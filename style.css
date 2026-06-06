@@ -508,10 +508,14 @@ section {
   font-weight: 900;
   letter-spacing: -0.03em;
   margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.hero-title .word {
   background: var(--color-gradient-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  line-height: 1.1;
+  background-clip: text;
 }
 
 .hero-desc {
