@@ -445,6 +445,17 @@ section {
   justify-content: center;
   padding-top: 8rem;
   overflow: hidden;
+  position: relative;
+}
+
+#hero-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .hero-grid {
@@ -452,6 +463,8 @@ section {
   grid-template-columns: 1.1fr 0.9fr;
   gap: 4rem;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-content {
@@ -506,6 +519,14 @@ section {
   color: var(--color-text-secondary);
   margin-bottom: 2.5rem;
   max-width: 540px;
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 1.0s ease, filter 1.0s ease;
+}
+
+.hero-desc.animate-in {
+  opacity: 1;
+  filter: blur(0);
 }
 
 .hero-actions {
@@ -513,6 +534,14 @@ section {
   gap: 1.5rem;
   flex-wrap: wrap;
   margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-actions.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Floating Mockup Canvas */
@@ -2628,6 +2657,26 @@ html, body, a, button, input, select, textarea, [role="button"], label, .checkbo
 .divider-line.animate-in {
   width: 100%;
 }
+/* -----------------------------------------
+   14. HERO TEXT ENTRANCE ANIMATIONS
+----------------------------------------- */
+.word-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.word {
+  display: inline-block;
+  transform: translateY(100%);
+  clip-path: inset(0 0 100% 0);
+  transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1), clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.word.animate-in {
+  transform: translateY(0);
+  clip-path: inset(0 0 0% 0);
+}
 
 /* Accessibility: Respect Reduced Motion preferences */
 @media (prefers-reduced-motion: reduce) {
@@ -2639,6 +2688,10 @@ html, body, a, button, input, select, textarea, [role="button"], label, .checkbo
     scroll-behavior: auto !important;
     transition-duration: 0s !important;
     transition-delay: 0s !important;
+  }
+  
+  #hero-particles {
+    display: none !important;
   }
   
   .ambient-blob-1, .ambient-blob-2, .ambient-blob-3, .canvas-card, .glow-underlay, .graphic-ring, .loader-text {
@@ -2663,11 +2716,16 @@ html, body, a, button, input, select, textarea, [role="button"], label, .checkbo
   .service-card,
   .project-img,
   .canvas-card,
-  .about-media {
+  .about-media,
+  .word,
+  .hero-desc,
+  .hero-actions {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
     animation: none !important;
+    clip-path: none !important;
+    filter: none !important;
   }
   
   .divider-line {

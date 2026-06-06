@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   
+  // Initialize hero enhancements immediately to avoid visual lag
+  splitHeroHeadline();
+  initHeroParticles();
+
   /* ==========================================================================
      0. PAGE LOADER WITH CURIOSITY STATUS TICKER
      ========================================================================== */
@@ -62,6 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
           pageLoader.classList.add('fade-out');
           document.body.style.overflow = ''; // Restore page scrolling
           
+          triggerHeroAnimations();
+
           // Clean up DOM after transition completes (600ms)
           setTimeout(() => {
             pageLoader.remove();
@@ -104,6 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       isFullyLoaded = true;
     }, 7000);
+  } else {
+    // If no page loader exists, run animations immediately
+    triggerHeroAnimations();
   }
 
   /* ==========================================================================
@@ -679,5 +688,168 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.1 });
   statNumbers.forEach(stat => statsObserver.observe(stat));
+
+  /* ==========================================================================
+     10. HERO EXTRAS (TEXT ENTRANCE & CANVAS PARTICLE SYSTEM)
+     ========================================================================== */
+  function splitHeroHeadline() {
+    const title = document.querySelector('.hero-title');
+    if (!title) return;
+
+    const newContent = [];
+    title.childNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const words = node.textContent.split(/(\s+)/);
+        words.forEach(word => {
+          if (word.trim().length > 0) {
+            newContent.push(`<span class="word-wrapper"><span class="word">${word}</span></span>`);
+          } else {
+            newContent.push(word);
+          }
+        });
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('gradient-text')) {
+        const words = node.textContent.split(/(\s+)/);
+        const spanWords = words.map(word => {
+          if (word.trim().length > 0) {
+            return `<span class="word-wrapper"><span class="word gradient-text">${word}</span></span>`;
+          }
+          return word;
+        }).join('');
+        newContent.push(spanWords);
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') {
+        newContent.push('<br>');
+      } else {
+        newContent.push(node.outerHTML);
+      }
+    });
+    title.innerHTML = newContent.join('');
+  }
+
+  function triggerHeroAnimations() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const words = document.querySelectorAll('.hero-title .word');
+    words.forEach((word, idx) => {
+      setTimeout(() => {
+        word.classList.add('animate-in');
+      }, 300 + idx * 80); // Stagger 0.08s per word, starting 0.3s after load
+    });
+
+    const desc = document.querySelector('.hero-desc');
+    if (desc) {
+      setTimeout(() => {
+        desc.classList.add('animate-in');
+      }, 1100); // Delayed 1.1s
+    }
+
+    const actions = document.querySelector('.hero-actions');
+    if (actions) {
+      setTimeout(() => {
+        actions.classList.add('animate-in');
+      }, 1600); // Delayed 1.6s
+    }
+  }
+
+  function initHeroParticles() {
+    const canvas = document.getElementById('hero-particles');
+    if (!canvas) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      canvas.style.display = 'none';
+      return;
+    }
+
+    const ctx = canvas.getContext('2d');
+    let width = (canvas.width = canvas.offsetWidth);
+    let height = (canvas.height = canvas.offsetHeight);
+
+    const resizeCanvas = () => {
+      width = canvas.width = canvas.offsetWidth;
+      height = canvas.height = canvas.offsetHeight;
+    };
+    window.addEventListener('resize', resizeCanvas);
+
+    const particles = [];
+    const numParticles = 60;
+    const repelRadius = 120;
+
+    let mouse = { x: -1000, y: -1000 };
+
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
+      heroSection.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+
+      heroSection.addEventListener('mouseleave', () => {
+        mouse.x = -1000;
+        mouse.y = -1000;
+      });
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.r = 1;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 0.2 + 0.15;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.rx = 0;
+        this.ry = 0;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0) this.x = width;
+        if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height;
+        if (this.y > height) this.y = 0;
+
+        const dx = (this.x + this.rx) - mouse.x;
+        const dy = (this.y + this.ry) - mouse.y;
+        const dist = Math.hypot(dx, dy);
+
+        if (dist < repelRadius && dist > 0) {
+          const force = (repelRadius - dist) / repelRadius;
+          const angle = Math.atan2(dy, dx);
+          this.rx += Math.cos(angle) * force * 1.5;
+          this.ry += Math.sin(angle) * force * 1.5;
+        }
+
+        this.rx *= 0.92;
+        this.ry *= 0.92;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x + this.rx, this.y + this.ry, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < numParticles; i++) {
+      particles.push(new Particle());
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      particles.forEach((p) => {
+        p.update();
+        p.draw();
+      });
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+  }
 
 });
