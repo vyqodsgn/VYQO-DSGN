@@ -275,7 +275,6 @@ section {
   margin-bottom: 4rem;
 }
 
-/* Premium Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -287,9 +286,27 @@ section {
   font-family: var(--font-heading);
   font-size: 0.95rem;
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
   position: relative;
   overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--spotlight-x, -999px) var(--spotlight-y, -999px), rgba(167, 139, 250, 0.18), transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.btn:hover::after {
+  opacity: 1;
 }
 
 .btn-primary {
@@ -311,7 +328,6 @@ section {
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
   box-shadow: 0 8px 30px rgba(176, 38, 255, 0.4);
 }
 
@@ -329,7 +345,6 @@ section {
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-3px);
 }
 
 /* -----------------------------------------
@@ -997,9 +1012,9 @@ section {
 }
 
 .skills-column:hover {
-  transform: translateY(-5px);
-  border-color: var(--color-accent);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  transform: scale(1.015);
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 0 0 30px rgba(167, 139, 250, 0.08);
 }
 
 .skills-column-title {
@@ -1097,8 +1112,9 @@ section {
 
 .radial-skill-card:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: var(--color-accent);
-  transform: translateY(-5px);
+  transform: scale(1.015);
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 0 0 30px rgba(167, 139, 250, 0.08);
 }
 
 .radial-svg-container {
@@ -1338,9 +1354,9 @@ section {
 
 /* Card Hover Interactions */
 .project-card:hover {
-  transform: translateY(-10px);
-  border-color: var(--color-accent);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), 0 0 25px rgba(167, 139, 250, 0.15);
+  transform: scale(1.015);
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 0 0 30px rgba(167, 139, 250, 0.08);
 }
 
 .project-card:hover .project-img {
@@ -1492,9 +1508,9 @@ section {
 }
 
 .service-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--color-accent);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  transform: scale(1.015);
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 0 0 30px rgba(167, 139, 250, 0.08);
 }
 
 /* --- THE WOW-FACTOR INTERACTIVE RATE ESTIMATOR --- */
@@ -2611,12 +2627,14 @@ html, body, a, button, input, select, textarea, [role="button"], label, .checkbo
 
 .radial-skill-card.animate-in,
 .skills-column.animate-in,
+.project-card.animate-in,
 .service-card.animate-in {
   opacity: 1;
   transform: translateY(0);
   transition: 
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
     border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
     box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }

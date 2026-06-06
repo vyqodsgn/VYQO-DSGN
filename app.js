@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   
-  // Initialize hero enhancements immediately to avoid visual lag
+  // Initialize visual systems and interaction upgrades immediately to avoid visual lag
   splitHeroHeadline();
   initHeroParticles();
+  initMagneticButtons();
 
   /* ==========================================================================
      0. PAGE LOADER WITH CURIOSITY STATUS TICKER
@@ -850,6 +851,103 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     animate();
+  }
+
+  function initMagneticButtons() {
+    const buttons = document.querySelectorAll('.btn');
+    
+    buttons.forEach(button => {
+      let currentX = 0;
+      let currentY = 0;
+      let isHovered = false;
+      let rafId = null;
+
+      // Mouse position relative to center of this button
+      let targetX = 0;
+      let targetY = 0;
+
+      // Make sure children (text/icons) don't capture cursor coordinates directly
+      button.querySelectorAll('*').forEach(child => {
+        child.style.pointerEvents = 'none';
+      });
+
+      // Mousemove for spotlight positions relative to button
+      button.addEventListener('mousemove', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        button.style.setProperty('--spotlight-x', `${x}px`);
+        button.style.setProperty('--spotlight-y', `${y}px`);
+      });
+
+      const updatePosition = () => {
+        if (!isHovered) return;
+        
+        // Lerp factor 0.2
+        currentX += (targetX - currentX) * 0.2;
+        currentY += (targetY - currentY) * 0.2;
+        
+        button.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        
+        rafId = requestAnimationFrame(updatePosition);
+      };
+
+      const handleGlobalMouseMove = (e) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const rect = button.getBoundingClientRect();
+        // Since button translates, rect.left / rect.top moves. 
+        // We find the original center by subtracting current translate coordinates!
+        const centerX = rect.left - currentX + rect.width / 2;
+        const centerY = rect.top - currentY + rect.height / 2;
+
+        const dx = e.clientX - centerX;
+        const dy = e.clientY - centerY;
+        const dist = Math.hypot(dx, dy);
+
+        if (dist < 90) {
+          // Inside 90px zone
+          button.style.transition = 'none'; // Clear spring transition during active track
+          isHovered = true;
+
+          // Target is up to 10px in the direction of the cursor
+          targetX = (dx / 90) * 10;
+          targetY = (dy / 90) * 10;
+
+          if (!rafId) {
+            rafId = requestAnimationFrame(updatePosition);
+          }
+        } else {
+          // Outside zone
+          if (isHovered) {
+            resetButton();
+          }
+        }
+      };
+
+      const resetButton = () => {
+        isHovered = false;
+        if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+        currentX = 0;
+        currentY = 0;
+        targetX = 0;
+        targetY = 0;
+        // Spring back with overshoot easing
+        button.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        button.style.transform = 'translate(0px, 0px)';
+      };
+
+      window.addEventListener('mousemove', handleGlobalMouseMove);
+      
+      button.addEventListener('mouseleave', () => {
+        resetButton();
+        button.style.setProperty('--spotlight-x', `-999px`);
+        button.style.setProperty('--spotlight-y', `-999px`);
+      });
+    });
   }
 
 });
