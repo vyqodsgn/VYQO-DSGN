@@ -107,6 +107,121 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
+     0.5 CUSTOM CURSOR SYSTEM
+     ========================================================================== */
+  // Create cursor elements dynamically
+  const cursorDot = document.createElement('div');
+  cursorDot.className = 'custom-cursor-dot';
+  
+  const cursorRing = document.createElement('div');
+  cursorRing.className = 'custom-cursor-ring';
+  
+  const cursorText = document.createElement('span');
+  cursorText.className = 'cursor-ring-text';
+  cursorText.textContent = 'VIEW';
+  
+  cursorRing.appendChild(cursorText);
+  document.body.appendChild(cursorDot);
+  document.body.appendChild(cursorRing);
+
+  // Mouse coordinate states
+  let mouseX = 0;
+  let mouseY = 0;
+  let ringX = 0;
+  let ringY = 0;
+  let isFirstMove = true;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  if (isTouchDevice) {
+    cursorDot.style.display = 'none';
+    cursorRing.style.display = 'none';
+  } else {
+    // 1. Mousemove updates
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      // Update dot position instantly
+      cursorDot.style.left = `${mouseX}px`;
+      cursorDot.style.top = `${mouseY}px`;
+
+      if (isFirstMove) {
+        ringX = mouseX;
+        ringY = mouseY;
+        isFirstMove = false;
+        cursorDot.style.opacity = '1';
+        cursorRing.style.opacity = '1';
+      }
+
+      // 2. Hover states checks
+      const target = e.target;
+      if (target) {
+        // Clear previous state classes
+        cursorRing.classList.remove('hover-cta', 'hover-text', 'hover-project');
+        cursorDot.classList.remove('hover-cta', 'hover-text', 'hover-project');
+
+        // Check selectors
+        if (
+          target.closest('.btn') || 
+          target.closest('.filter-btn') || 
+          target.closest('.tab-btn') || 
+          target.closest('.social-circle-btn') || 
+          target.closest('button') || 
+          target.closest('.nav-link') ||
+          target.closest('a') ||
+          target.closest('.checkbox-card') ||
+          target.closest('input[type="submit"]') ||
+          target.closest('.hamburger')
+        ) {
+          cursorRing.classList.add('hover-cta');
+          cursorDot.classList.add('hover-cta');
+        } else if (
+          target.closest('.project-card') || 
+          target.closest('img') || 
+          target.closest('.canvas-container') ||
+          target.closest('.about-visual')
+        ) {
+          cursorRing.classList.add('hover-project');
+          cursorDot.classList.add('hover-project');
+        } else if (
+          target.closest('h1, h2, h3, h4, h5, h6, p, span, li')
+        ) {
+          // Avoid text hover trigger on elements inside buttons/cards
+          if (!target.closest('.btn') && !target.closest('a') && !target.closest('button') && !target.closest('.project-card') && !target.closest('.checkbox-card')) {
+            cursorRing.classList.add('hover-text');
+            cursorDot.classList.add('hover-text');
+          }
+        }
+      }
+    });
+
+    // 3. Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+      cursorDot.style.opacity = '0';
+      cursorRing.style.opacity = '0';
+    });
+    
+    document.addEventListener('mouseenter', () => {
+      if (!isFirstMove) {
+        cursorDot.style.opacity = '1';
+        cursorRing.style.opacity = '1';
+      }
+    });
+
+    // 4. Smooth Lerp Animation Loop via requestAnimationFrame (easing factor 0.12)
+    const updateRingPosition = () => {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+
+      cursorRing.style.left = `${ringX}px`;
+      cursorRing.style.top = `${ringY}px`;
+
+      requestAnimationFrame(updateRingPosition);
+    };
+    requestAnimationFrame(updateRingPosition);
+  }
+
+  /* ==========================================================================
      1. SCROLL TRACKING & PROGRESS BAR
      ========================================================================== */
   const scrollProgressBar = document.querySelector('.scroll-progress-bar');

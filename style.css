@@ -2437,6 +2437,109 @@ footer {
   }
 }
 
+/* -----------------------------------------
+   12. CUSTOM CURSOR SYSTEM
+----------------------------------------- */
+/* Hide default cursor on entire page */
+html, body, a, button, input, select, textarea, [role="button"], label, .checkbox-card, .btn, .nav-link, .filter-btn, .tab-btn, .social-circle-btn {
+  cursor: none !important;
+}
+
+.custom-cursor-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1000000;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  opacity: 0;
+}
+
+.custom-cursor-ring {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #ffffff;
+  background-color: transparent;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999999;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: 
+    width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cursor-ring-text {
+  font-family: var(--font-heading);
+  font-size: 9px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Hovering CTA/Buttons */
+.custom-cursor-ring.hover-cta {
+  width: 52px;
+  height: 52px;
+  border-color: #A78BFA;
+  box-shadow: 0 0 18px rgba(167, 139, 250, 0.4);
+  background-color: rgba(167, 139, 250, 0.05);
+}
+
+.custom-cursor-dot.hover-cta {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+/* Hovering heading/text */
+.custom-cursor-ring.hover-text {
+  width: 44px;
+  height: 6px;
+  border-radius: 3px;
+  border-color: #ffffff;
+}
+
+/* Hovering project card or image */
+.custom-cursor-ring.hover-project {
+  width: 64px;
+  height: 64px;
+  border-color: #ffffff;
+}
+
+.custom-cursor-ring.hover-project .cursor-ring-text {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.custom-cursor-dot.hover-project {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
 /* Accessibility: Respect Reduced Motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -2455,5 +2558,12 @@ footer {
 
   .page-loader {
     transition: none !important;
+  }
+
+  html, body, a, button, input, select, textarea, [role="button"], label, .checkbox-card, .btn, .nav-link, .filter-btn, .tab-btn, .social-circle-btn {
+    cursor: auto !important;
+  }
+  .custom-cursor-dot, .custom-cursor-ring {
+    display: none !important;
   }
 }
