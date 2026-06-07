@@ -484,6 +484,7 @@ section {
   justify-content: center;
   padding-top: 8rem;
   overflow: hidden;
+  overflow-x: hidden;
   position: relative;
 }
 
@@ -543,11 +544,16 @@ section {
 }
 
 .hero-title {
-  font-size: clamp(2.2rem, 8vw, 5rem);
+  font-size: clamp(2rem, 5vw, 4.5rem);
   font-weight: 900;
   letter-spacing: -0.03em;
   margin-bottom: 1.5rem;
   line-height: 1.1;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
 }
 
 .hero-title .word {
@@ -2349,6 +2355,11 @@ footer {
   .hero-content {
     align-items: center;
     text-align: center;
+  }
+
+  .hero-title {
+    padding: 0;
+    max-width: 100%;
   }
   
   .hero-desc {
