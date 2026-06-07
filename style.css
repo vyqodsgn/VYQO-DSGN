@@ -4,7 +4,7 @@
 :root {
   overflow-x: hidden !important;
   /* Fonts */
-  --font-heading: 'Syne', sans-serif;
+  --font-heading: 'Outfit', sans-serif;
   --font-body: 'DM Sans', sans-serif;
 
   /* Colors */
@@ -276,7 +276,7 @@ section {
 }
 
 .section-title {
-  font-size: clamp(1.8rem, 6vw, 3.5rem);
+  font-size: clamp(1.6rem, 4.5vw, 2.6rem);
   font-weight: 800;
   margin-bottom: 1.5rem;
   background: var(--color-gradient-text);
@@ -544,7 +544,7 @@ section {
 }
 
 .hero-title {
-  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
   font-weight: 900;
   letter-spacing: -0.03em;
   margin-bottom: 1.5rem;
@@ -787,7 +787,7 @@ section {
   flex-direction: column;
 }
 .stat-num {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 800;
   font-family: var(--font-heading);
   color: #ffffff;
@@ -1499,7 +1499,7 @@ section {
 }
 
 .service-price {
-  font-size: 2.2rem;
+  font-size: 1.9rem;
   font-weight: 800;
   color: #ffffff;
   margin-bottom: 1.5rem;
@@ -1767,7 +1767,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 }
 
 .result-currency {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #ffffff;
   font-family: var(--font-heading);
@@ -1781,7 +1781,7 @@ input[type=range]::-webkit-slider-thumb:hover {
 }
 
 .result-price-val {
-  font-size: clamp(3rem, 15vw, 7rem);
+  font-size: clamp(2.2rem, 8vw, 3.8rem);
   font-weight: 900;
   color: #ffffff;
   font-family: var(--font-heading);
