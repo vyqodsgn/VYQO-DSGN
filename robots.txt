@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vyqo-dsgn.vercel.app/sitemap.xml

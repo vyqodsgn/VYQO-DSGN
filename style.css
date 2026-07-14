@@ -883,7 +883,7 @@ section {
   box-shadow: 0 0 10px rgba(176, 38, 255, 0.3);
 }
 
-.author-info h4 {
+.author-info .author-name {
   font-size: 0.95rem;
   font-weight: 600;
   color: #ffffff;
@@ -1879,7 +1879,7 @@ input[type=range]::-webkit-slider-thumb:hover {
   box-shadow: var(--glow-shadow);
 }
 
-.contact-card-details h4 {
+.contact-card-details h3 {
   font-size: 1rem;
   font-weight: 600;
   color: #ffffff;
@@ -2103,7 +2103,7 @@ footer {
   line-height: 1.6;
 }
 
-.footer-col h4 {
+.footer-col h3 {
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -2128,7 +2128,7 @@ footer {
   display: inline-block;
 }
 
-.footer-newsletter h4 {
+.footer-newsletter h3 {
   margin-bottom: 1rem;
 }
 
