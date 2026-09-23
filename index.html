@@ -69,19 +69,12 @@
   <!-- Noise Overlay for Depth -->
   <div class="noise-overlay" aria-hidden="true"></div>
 
-  <!-- 0. PAGE LOADER (Forest & Lime Theme) -->
-  <div class="page-loader" id="pageLoader">
-    <div class="loader-content">
-      <div class="loader-circle-wrapper">
-        <svg class="loader-svg" viewBox="0 0 120 120">
-          <circle class="loader-circle-track" cx="60" cy="60" r="54"></circle>
-          <circle class="loader-circle-progress" cx="60" cy="60" r="54" id="loaderProgress"></circle>
-        </svg>
-        <div class="loader-text">VYQO</div>
-      </div>
-      <div class="loader-percentage" id="loaderPercent">0 %</div>
-      <div class="loader-status" id="loaderStatus">INITIATING STUDIOS...</div>
-    </div>
+  <!-- 0. RIVE INTRO OVERLAY -->
+  <div class="rive-intro-overlay" id="riveIntro" role="dialog" aria-label="VYQO startup animation" aria-modal="true">
+    <canvas id="riveCanvas"></canvas>
+    <button class="rive-skip-btn" id="riveSkipBtn" aria-label="Skip intro animation">
+      Skip <span aria-hidden="true">→</span>
+    </button>
   </div>
 
   <!-- 1. AMBIENT BACKGROUND LAYER -->
@@ -797,6 +790,7 @@
   </footer>
 
   <!-- Scripts -->
+  <script src="https://unpkg.com/@rive-app/canvas@2.42.2"></script>
   <script src="app.js"></script>
 </body>
 </html>

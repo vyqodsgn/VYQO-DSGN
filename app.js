@@ -6,114 +6,175 @@ document.addEventListener('DOMContentLoaded', () => {
   initMagneticButtons();
 
   /* ==========================================================================
-     0. PAGE LOADER WITH CURIOSITY STATUS TICKER
+     0. RIVE INTRO ANIMATION
      ========================================================================== */
-  const pageLoader = document.getElementById('pageLoader');
-  const loaderProgress = document.getElementById('loaderProgress');
-  const loaderPercent = document.getElementById('loaderPercent');
-  const loaderStatus = document.getElementById('loaderStatus');
+  const riveOverlay = document.getElementById('riveIntro');
+  const riveCanvas = document.getElementById('riveCanvas');
+  const riveSkipBtn = document.getElementById('riveSkipBtn');
 
-  if (pageLoader && loaderProgress && loaderPercent && loaderStatus) {
-    // 0.1 Prevent body scrolling during loading phase
+  // Determine whether to show intro
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const alreadyShown = sessionStorage.getItem('vyqo_intro_shown') === '1';
+  const shouldSkipIntro = reducedMotion || alreadyShown || !riveOverlay || !riveCanvas;
+
+  if (shouldSkipIntro) {
+    // Remove overlay immediately, show site
+    if (riveOverlay) riveOverlay.remove();
+    triggerHeroAnimations();
+  } else {
+    // Lock scroll and focus during intro
     document.body.style.overflow = 'hidden';
+    let introDismissed = false;
+    let riveInstance = null;
+    let resizeHandler = null;
+    let failsafeTimer = null;
+    let animationTimer = null;
 
-    let progress = 0;
-    const circumference = 339.3; // 2 * Math.PI * 54
-    let loadingInterval;
-    let isFullyLoaded = false;
+    // Focus the skip button for keyboard users
+    riveSkipBtn.focus({ preventScroll: true });
 
-    // Define status texts matching progress intervals to build curiosity
-    const getStatusText = (prog) => {
-      if (prog < 20) {
-        return "INITIATING STUDIOS...";
-      } else if (prog < 40) {
-        return "CRAFTING BRAND IDENTITIES...";
-      } else if (prog < 65) {
-        return "ENGINEERING WEB EXPERIENCES...";
-      } else if (prog < 85) {
-        return "INJECTING CREATIVE ARTISTRY...";
-      } else if (prog < 98) {
-        return "OPTIMIZING USER EXPERIENCE...";
-      } else {
-        return "PREPARING INTERFACE...";
+    // Trap focus within overlay while visible
+    const trapFocus = (e) => {
+      if (!riveOverlay.contains(document.activeElement) && !introDismissed) {
+        e.stopPropagation();
+        riveSkipBtn.focus({ preventScroll: true });
       }
     };
+    document.addEventListener('focus', trapFocus, true);
 
-    const updateProgress = (value) => {
-      progress = Math.min(Math.max(value, 0), 100);
-      
-      // Update text indicators
-      loaderPercent.textContent = `${Math.round(progress)} %`;
-      
-      // Update SVG circular arc fill offset
-      const offset = circumference - (progress / 100) * circumference;
-      loaderProgress.style.strokeDashoffset = offset;
-
-      // Update curiosity status message
-      const statusText = getStatusText(progress);
-      if (loaderStatus.textContent !== statusText) {
-        loaderStatus.style.opacity = 0;
-        setTimeout(() => {
-          loaderStatus.textContent = statusText;
-          loaderStatus.style.opacity = 0.8;
-        }, 150);
+    // Canvas sizing respecting devicePixelRatio
+    function sizeRiveCanvas() {
+      if (!riveCanvas || introDismissed) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const cssW = riveCanvas.clientWidth;
+      const cssH = riveCanvas.clientHeight;
+      const bufW = Math.round(cssW * dpr);
+      const bufH = Math.round(cssH * dpr);
+      if (riveCanvas.width !== bufW || riveCanvas.height !== bufH) {
+        riveCanvas.width = bufW;
+        riveCanvas.height = bufH;
       }
+    }
 
-      if (progress >= 100) {
-        clearInterval(loadingInterval);
-        
-        // Hide loader overlay with transition
-        setTimeout(() => {
-          pageLoader.classList.add('fade-out');
-          document.body.style.overflow = ''; // Restore page scrolling
-          
-          triggerHeroAnimations();
+    // Dismiss the intro overlay
+    function dismissIntro() {
+      if (introDismissed) return;
+      introDismissed = true;
 
-          // Clean up DOM after transition completes (600ms)
-          setTimeout(() => {
-            pageLoader.remove();
-          }, 600);
-        }, 400);
-      }
-    };
+      // Mark as shown for this tab session
+      sessionStorage.setItem('vyqo_intro_shown', '1');
 
-    // Smooth loading simulator with variable progress increments (adjusted for slower progression)
-    let currentStep = 0;
-    loadingInterval = setInterval(() => {
-      if (isFullyLoaded) {
-        // Accelerate loading once window finishes loading assets
-        currentStep += Math.random() * 3 + 1.5;
-        updateProgress(currentStep);
-      } else {
-        // Smooth simulated loading
-        if (currentStep < 30) {
-          currentStep += Math.random() * 1.5 + 0.5;
-        } else if (currentStep < 60) {
-          currentStep += Math.random() * 1.0 + 0.3;
-        } else if (currentStep < 88) {
-          currentStep += Math.random() * 0.5 + 0.1;
-        } else if (currentStep < 97) {
-          currentStep += Math.random() * 0.15 + 0.02;
-        } else {
-          // Hold at 97% until window load event fires
-          currentStep = 97;
+      // Clear timers
+      if (failsafeTimer) clearTimeout(failsafeTimer);
+      if (animationTimer) clearTimeout(animationTimer);
+
+      // Fade out overlay
+      riveOverlay.classList.add('fade-out');
+
+      // Restore scroll
+      document.body.style.overflow = '';
+
+      // Trigger hero entrance animations
+      triggerHeroAnimations();
+
+      // Remove focus trap
+      document.removeEventListener('focus', trapFocus, true);
+
+      // Clean up after transition completes (300ms)
+      setTimeout(() => {
+        // Cleanup Rive instance
+        if (riveInstance) {
+          try { riveInstance.cleanup(); } catch (_) {}
+          riveInstance = null;
         }
-        updateProgress(currentStep);
-      }
-    }, 65);
+        // Remove resize listener
+        if (resizeHandler) {
+          window.removeEventListener('resize', resizeHandler);
+          resizeHandler = null;
+        }
+        // Remove overlay from DOM
+        if (riveOverlay && riveOverlay.parentNode) {
+          riveOverlay.remove();
+        }
+      }, 350);
+    }
 
-    // Track when all styles, images, and resources are fully loaded
-    window.addEventListener('load', () => {
-      isFullyLoaded = true;
+    // Skip button handlers
+    riveSkipBtn.addEventListener('click', dismissIntro);
+    riveSkipBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        dismissIntro();
+      }
     });
 
-    // Fallback: in case page assets fail to fire load event, force complete
-    setTimeout(() => {
-      isFullyLoaded = true;
-    }, 7000);
-  } else {
-    // If no page loader exists, run animations immediately
-    triggerHeroAnimations();
+    // Escape key dismisses
+    const escHandler = (e) => {
+      if (e.key === 'Escape') dismissIntro();
+    };
+    document.addEventListener('keydown', escHandler);
+
+    // Overall failsafe timeout (8 seconds)
+    failsafeTimer = setTimeout(() => {
+      if (!introDismissed) {
+        console.warn('VYQO intro: failsafe timeout reached, dismissing.');
+        dismissIntro();
+      }
+    }, 8000);
+
+    // Initialize Rive
+    try {
+      if (typeof rive === 'undefined' || !rive.Rive) {
+        throw new Error('Rive runtime not loaded');
+      }
+
+      sizeRiveCanvas();
+
+      riveInstance = new rive.Rive({
+        src: 'vyqo_\u2014_startup_reveal.riv',
+        canvas: riveCanvas,
+        artboard: 'VYQO Startup',
+        stateMachines: 'State Machine 1',
+        autoplay: true,
+        useDevicePixelRatio: true,
+        layout: new rive.Layout({
+          fit: rive.Fit.Contain,
+          alignment: rive.Alignment.Center
+        }),
+        onLoad: () => {
+          sizeRiveCanvas();
+          if (riveInstance) {
+            riveInstance.resizeDrawingSurfaceToCanvas();
+          }
+          // Set animation completion timer (3.2s animation duration)
+          animationTimer = setTimeout(() => {
+            dismissIntro();
+          }, 3200);
+        },
+        onLoadError: (err) => {
+          console.warn('VYQO intro: Rive load error, dismissing.', err);
+          dismissIntro();
+        }
+      });
+
+      // Resize handler
+      resizeHandler = () => {
+        if (introDismissed) return;
+        sizeRiveCanvas();
+        if (riveInstance) {
+          try { riveInstance.resizeDrawingSurfaceToCanvas(); } catch (_) {}
+        }
+      };
+      window.addEventListener('resize', resizeHandler);
+
+    } catch (err) {
+      console.warn('VYQO intro: initialization failed, dismissing.', err);
+      dismissIntro();
+    }
+
+    // Remove escape handler after dismiss
+    const originalDismiss = dismissIntro;
+    // (escape handler auto-cleaned via introDismissed guard)
   }
 
   /* ==========================================================================
